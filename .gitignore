@@ -1,0 +1,5 @@
+*.swp
+**/accounts.properties
+**/accounts.json*
+**/safecloudfs.properties*
+__pycache__
