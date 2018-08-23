@@ -5,8 +5,8 @@ from botocore.client import Config
 
 
 __doc__ = """
-Run the equivalent of "s3cmd <command>". Use AWS_ACCESS_KEY, AWS_SECRET_KEY and
-AWS_S3_URL env vars. Only very limited functionality supported.
+Run the equivalent of "s3cmd <command>". Use S3_ACCESS_KEY, S3_SECRET_KEY and
+S3_URL env vars. Only very limited functionality supported.
 
 usage:
     ./{this} ( ls [-v] [-o] | mb [<bucket>] [-o] | rb <buckets>... |

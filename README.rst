@@ -30,7 +30,7 @@ bit flexible and because specifying branch names is impossible in
 docker-compose, we do not include the build in ``docker-compose.yml`` and
 instead rely on pre-built images. 
 
-Note that are free to give your images other names and tags, e.g. 
+Note that you are free to give your images other names and tags, e.g. 
 
 ::
 
@@ -79,11 +79,13 @@ Enter the SafeCloudFS container and execute the test script::
     $ docker exec -ti safecloudfs bash
     root@safecloudfs# /tmp/scb/test-safecloudfs.sh /mnt/safecloudfs
 
-Ceph @ OpenStack
-----------------
+Ceph S3 @ C&H OpenStack
+-----------------------
 
-Create S3 credentials for C&H Ceph backends: ssh to one datacenter, e.g.
-``f1a``
+First, register an account at https://www.cloudandheat.com. You will receive
+login credentials and ``ssh`` access to our datacenters. Then, create S3
+credentials (``S3_ACCESS_KEY``, ``S3_SECRET_KEY``) for the Ceph backends.
+``ssh`` to one datacenter, e.g. ``f1a``
 
 ::
 
