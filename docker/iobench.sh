@@ -9,7 +9,7 @@ write(){
     local size=$2
     echo $size $dst
     for x in $(seq 3); do
-        dd if=/dev/urandom \
+        dd if=/dev/zero \
            of=$dst \
            bs=${size} \
            count=1 \
