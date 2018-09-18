@@ -46,7 +46,7 @@ container start).
 
 Cleanup::
 
-    $ docker-compose rm -sf
+    $ ./stop.sh
 
 Run SafeCloudFS tests
 ---------------------
