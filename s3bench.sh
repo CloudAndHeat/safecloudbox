@@ -13,11 +13,25 @@
 #   $ . ~/env_f1a.sh
 #   $ ./s3bench.sh steveschmerler@dashboard-f1a.cloudandheat.com
 
+set -eu 
+
+err(){
+    echo "$0: error: $@"
+    exit 1
+}
+
 ssh_dc=$1
 
 # MB
 size=500
 dd if=/dev/urandom of=file bs=${size}M count=1 iflag=fullblock status=none
+
+if ! [ $(echo "$size*1024*1024" | bc) = $(stat -c %s file) ]; then
+    err "file has wrong size"
+fi
+echo "file write done"
+
+ssh $ssh_dc hostname > /dev/null || err "ssh test failed"
 
 echo "scp"
 for x in $(seq 3); do 
