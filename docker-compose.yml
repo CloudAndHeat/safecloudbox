@@ -2,18 +2,18 @@ version: '3.3'
 
 services:
   safecloudfs:
-    image: safecloudfs
-##    build:
-##        context: https://github.com/CloudAndHeat/SafeCloudFS.git
+    image: safecloudfs:feature-safecloudbox
+    build:
+        context: https://github.com/CloudAndHeat/SafeCloudFS.git#feature-safecloudbox
     container_name: safecloudfs
     privileged: true
-    cap_add: 
+    cap_add:
         - SYS_ADMIN
     command: '"/bin/sleep 35 && /tmp/scb/entrypoint.sh"'
     stdin_open: true
-    tty: true  
+    tty: true
     network_mode: host
-    devices: 
+    devices:
         - /dev/fuse:/dev/fuse
     volumes:
         - /tmp/scb:/tmp/scb
@@ -22,8 +22,8 @@ services:
 
   depspacito:
     image: depspacito
-##    build:
-##        context: https://github.com/inesc-id/DepSpacito.git
+    build:
+        context: https://github.com/inesc-id/DepSpacito.git
     container_name: depspacito
     command: sh -c "sh build_args.sh 127.0.0.1 11000 && mvn exec:java"
     network_mode: host

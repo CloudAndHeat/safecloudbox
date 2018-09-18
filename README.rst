@@ -15,37 +15,14 @@ else::
 
     $ pip3 install boto3 docopt
 
-Build Docker images
--------------------
-
-::
-
-    $ git clone https://github.com/CloudAndHeat/SafeCloudFS
-    $ cd SafeCloudFS && git checkout feature-safecloudbox && docker build -t safecloudfs . && cd ..
-    $ git clone https://github.com/inesc-id/DepSpacito
-    $ cd DepSpacito && docker build -t depspacito . && cd ..
-
-You may need to use another branch of SafeCloudFS. Because we like to keep that
-bit flexible and because specifying branch names is impossible in
-docker-compose, we do not include the build in ``docker-compose.yml`` and
-instead rely on pre-built images. 
-
-Note that you are free to give your images other names and tags, e.g. 
-
-::
-
-    $ docker build -t safecloudfs:some-tag .
-
-Then, adapt the ``image`` field in ``docker-compose.yml``.
-    
-
 Run
 ---
 
 We start safecloudbox on one host. We run two Docker containers: (i) a
 coordination service container (1-replica DepSpace, using DepSpacito_), (ii) a
 SafeCloudFS_ container using 4 S3 buckets behind a single S3 endpoint. We use
-docker-compose to start the DepSpace and SafeCloudFS containers.
+``docker-compose`` to start the DepSpace and SafeCloudFS containers.
+``docker-compose`` will build the container images if none are present.
 
 To start, you need to export your S3 credentials and then run ``start.sh``.
 
@@ -59,7 +36,7 @@ To start, you need to export your S3 credentials and then run ``start.sh``.
 After both containers are up and all services are running, point your browser
 to port 80 and login to Nextcloud using random passwords (generated newly at
 container start).
-    
+
     =====   ===================
     login   password
     -----   -------------------
@@ -102,6 +79,24 @@ way. We connect that to Nextcloud_: Data you save in Nextcloud gets written to
 ``/var/www/html/``, which is a local cache (Docker volume). We sync files from
 there to SafeCloudFS, which in turn saves the data to S3 backends in C&H's
 infrastructure.
+
+
+Build Docker images
+-------------------
+
+For local debugging, it may be useful to build the images before running
+``docker-compose``. In that case, ``docker-compose`` will use those instead of
+building them.
+
+::
+
+    $ git clone https://github.com/CloudAndHeat/SafeCloudFS
+    $ cd SafeCloudFS && git checkout feature-safecloudbox \
+        && docker build -t safecloudfs:feature-safecloudbox . && cd ..
+    $ git clone https://github.com/inesc-id/DepSpacito
+    $ cd DepSpacito && docker build -t depspacito . && cd ..
+
+
 
 .. _docker: https://docs.docker.com/install
 .. _docker-compose: https://docs.docker.com/compose/install
